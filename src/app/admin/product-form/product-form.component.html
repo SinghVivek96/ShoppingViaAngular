@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input formControlName="title" id="title" type="text" class="form-control" [ngClass]="{ 'is-invalid':f.title.errors && (f.title.touched||f.title.dirty) }">
+                <div *ngIf="f.title.errors" class="invalid-feedback">
+                  <div *ngIf="f.title.errors.required">Title is required</div>
+                  <div *ngIf="f.title.errors.minlength">Title shpuld be atleast 3 letter long.</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Rs.</span>
+                  <input formControlName="price" id="price" type="number" class="form-control" [ngClass]="{ 'is-invalid':f.price.errors && (f.price.touched||f.price.dirty) }">
+                  <div *ngIf="(f.price.touched||f.price.dirty) && f.price.errors" class="invalid-feedback">
+                    <div *ngIf="f.price.errors.required">Price is required</div>
+                    <div *ngIf="f.price.errors.pattern">Price should not be negative</div>
+                </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select formControlName="category" id="category" class="form-control" [ngClass]="{ 'is-invalid':f.category.errors && (f.category.touched||f.category.dirty) }">
+                    <option value=""></option>
+                    <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
+                </select>
+                <div *ngIf="(f.category.touched||f.category.dirty) && f.category.errors" class="invalid-feedback">
+                  <div *ngIf="f.category.errors.required">Category is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input formControlName="imageUrl" id="imageUrl" type="text" class="form-control" [ngClass]="{ 'is-invalid':f.imageUrl.errors && (f.imageUrl.touched||f.imageUrl.dirty) }">
+                <div *ngIf="(f.imageUrl.touched||f.imageUrl.dirty||submitted) && f.imageUrl.errors" class="invalid-feedback">
+                  <div *ngIf="f.imageUrl.errors.required">Image URL is required</div>
+                  <div *ngIf="f.imageUrl.errors.pattern">Please enter valid url.</div>
+              </div>
+            </div>
+            <div *ngIf="saved" class="alert alert-success" role="alert">
+              Saved Successfully
+            </div>
+            <button type="submit" *ngIf="!g.invalid" class="btn btn-primary mr-1" (click)="addProduct($event)">Save</button>
+            <button class="btn btn-secondary" type="reset" (click)="onReset()">Reset</button>
+          </form>
+      </div>
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        
+        <!-- <div class="card" >
+          <div *ngIf="f.imageUrl.errors ; else validImageUrl">
+          <img src="https://cdn.shopify.com/app-store/listing_images/bd8e69a3e7e7f8a886a62cffb893d8d2/icon/CNjlo7P0lu8CEAE=.jpg" class="preview" alt="...">
+        </div>
+        <ng-template #validImageUrl>
+          <img [src]="f.imageUrl.value" class="preview">
+        </ng-template>
+          <div class="card-body">
+            <small class="form-text text-muted">{{f.category.value}}</small>
+            <h4 class="card-title">{{f.title.value}}</h4>
+            <h5 class="card-text">{{f.price.value | currency:'INR'}}</h5>
+          </div>
+        </div> -->
+        <app-product-card
+        [product]="product"
+        [show-actions]="showActions"
+        >
+
+          </app-product-card> 
+      </div>
+    </div>
+  </div>

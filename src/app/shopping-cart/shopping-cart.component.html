@@ -1,0 +1,61 @@
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <ng-container class=""
+        *ngIf="cart$ | async as cart">
+        <p >
+            You have {{cart.totalItemsCount}} items in your cart 
+            <button class="btn btn-link btn-sm"
+            style="float: right;"
+            (click)=clearCart()>Clear Cart</button>
+            <button routerLink="/" class="btn btn-link btn-sm"
+            style="float: right;">Continue Shopping</button>
+        </p>    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th style="max-width: max-content; text-align: center;">Quantity</th>
+                    <th style="text-align: right;">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cart.items"> 
+                    <td style="text-align: -webkit-center;">
+                        <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="thumbnail"></div>
+                    </td>
+                    <td> {{ item.product.title }} </td>
+                    <td> 
+                        <product-quantity
+                        [product]="item.product"
+                        [shoppingCart]="cart"
+                        ></product-quantity>
+
+                        <!-- {{ item.quantity      }} -->
+                    </td>
+                    <td style="text-align: right;"> {{ item.totalPrice | currency:'INR'}}  
+                        <!-- <small>@  {{item.product.price | currency:'INR'}}/item</small> -->
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align: right;">{{cart.totalPrice | currency:'INR'}}</th>
+                </tr>
+            </tfoot>
+        </table> 
+        
+        <div class="row  no-gutters">
+            <div class="col-2 p3">
+            </div>
+            <div class="col-2 p3" *ngIf="cart.items.length">
+                <button routerLink="/check-out" class="btn btn-light btn-sm">Check Out</button>
+            </div>
+            <div class="col-2 p3" *ngIf="cart.items.length">
+            </div>
+        </div>
+    </ng-container>
+</div>

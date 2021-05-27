@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container">
+    <div class="card text-center" *ngIf="orderData">
+        <div class="card-header">
+            {{orderData.shipping.name}}                   <br>
+            <small>{{orderData.shipping.address1}}</small><br>
+            <small>{{orderData.shipping.address2}}</small><br>
+            <small>{{orderData.shipping.city}}</small>
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">Order Summary</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let item of orderData.items">
+                <div class="row">
+                    <div class="col-4" style="text-align: left;">{{item.product.title}}</div>
+                    <div class="col-4" style="text-align: center;">{{item.quantity}} x {{item.product.price}}</div>
+                    <div class="col-4" style="text-align: right;">{{item.totalPrice | currency:'INR'}}</div>
+                </div>
+            </li>
+        </ul>
+        </div>
+        <div class="card-footer text-muted">
+            {{orderData.datePlaced | date: 'yyyy-MM-dd'}}
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="container">
+<div ng-app="myApp">
+    <div ng-controller="">
+      <h2 class="page-header">Categories</h2>
+      <table ng-table-dynamic="demo.tableParams with demo.cols" show-filter="true" class="table table-bordered table-striped">
+        <tr *ngFor="let category of categories$ | async">
+          <td >{{category.name}}</td>
+          <td  class="categoryDelete"><button type="button" class="btn btn-danger" (click)="deleteCategory(category.name)">Delete</button></td>
+        </tr>
+      </table>
+    </div>
+    <form [formGroup]="form" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <input formControlName="newCategory" type="text" class="form-control" placeholder="New Category">
+        </div>
+        <button class="btn btn-primary mb-2" (click)="addCategory($event)">Add Category</button>
+      </form>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.container
+{
+    border-top: 100px;
+}
+
+.preview
+{
+    height: 435px;
+    /* width : 435px; */
+    align-items: center;
+}

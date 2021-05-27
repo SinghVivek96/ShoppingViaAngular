@@ -1,0 +1,24 @@
+<div class="card">
+    <div *ngIf="product.imageUrl=='' ; else validImageUrl">
+        <img src="https://cdn.shopify.com/app-store/listing_images/bd8e69a3e7e7f8a886a62cffb893d8d2/icon/CNjlo7P0lu8CEAE=.jpg" class="card-img-top">
+      </div>
+      <ng-template #validImageUrl>
+        <img [src]="product.imageUrl" class="card-img-top">
+      </ng-template>
+    <div class="card-body">
+        <small class="form-text text-muted">{{product.category}}</small>
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.price | currency : 'INR'}}</p>  
+    </div>
+    <div class="class-footer" *ngIf="showActions && shoppingCart">
+      <button 
+       *ngIf="shoppingCart.getQuantity(product)==0 ; else updateQuantity"
+       (click)="addToCart()"  
+      class="btn btn-secondary btn-block">Add to Cart</button>
+      <ng-template #updateQuantity>
+        <product-quantity 
+        [product]="product"
+        [shoppingCart]="shoppingCart"></product-quantity>
+      </ng-template>
+    </div>
+</div>

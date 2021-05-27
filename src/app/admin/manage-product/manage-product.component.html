@@ -1,0 +1,52 @@
+<div class="container">
+    <form [formGroup]="form">
+      <div class="form-group">
+          <input formControlName="title" id="title" type="text" class="form-control" (keyup)="filter()" placeholder="Search...">
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" class="form-control" formControlName="category" (change)="filter()">
+            <option value=""></option>
+            <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
+        </select>
+      </div>
+    </form>
+      
+    <table mat-table [dataSource]="filteredProducts" class="mat-elevation-z8" matSort>
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> TITLE </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+    
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CATEGORY </th>
+        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+      </ng-container>
+    
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRICE </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+    
+      <!-- Price Column -->
+      <ng-container matColumnDef="update_delete">
+        <th mat-header-cell *matHeaderCellDef> EDIT/DELETE </th>
+        <td mat-cell *matCellDef="let element">
+          <button type="button" class="btn btn-info mr-2" [routerLink]="['/admin/products/',element.uid]">Edit</button>
+          <button type="button" class="btn btn-danger"    (click)="deleteProduct(element.uid)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+      <!-- Angular 8 pagination -->
+<mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>
+<div class="container" style="text-align: center;">
+  <button routerLink="/admin/products/new" class="btn btn-light btn-block">New Product</button>
+  <button routerLink="/admin/products/manageCategory" class="btn btn-light btn-block">Manage Category</button>
+</div>

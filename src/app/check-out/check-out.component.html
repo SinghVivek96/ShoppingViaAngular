@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="display-4">
+      Shipping
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="form" *ngIf="f.controls as formData">
+          <div class="form-group">
+              <label for="name">Name</label>
+              <input formControlName="name" id="name" type="text" class="form-control" [ngClass]="{ 'is-invalid':formData.name.errors && (formData.name.touched||formData.name.dirty) }">
+              <div *ngIf="formData.name.errors" class="invalid-feedback">
+                <div *ngIf="formData.name.errors.required">Name is required</div>
+                <div *ngIf="formData.name.errors.minlength">Name should be at least 3 letter long.</div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="address">Address</label>
+              <div class="input-group-prepend">
+                <input formControlName="address1" id="address1" type="text" class="form-control" [ngClass]="{ 'is-invalid':formData.address1.errors && (formData.address1.touched||formData.address1.dirty) }">
+                <div *ngIf="(formData.address1.touched||formData.address1.dirty) && formData.address1.errors" class="invalid-feedback">
+                  <div *ngIf="formData.address1.errors.required">Address is required</div>
+                  <div *ngIf="formData.address1.errors.pattern">Address should not be negative</div>
+                </div>
+              </div>
+              <div class="input-group-prepend">
+                  <input formControlName="address2" id="address2" type="text" class="form-control" [ngClass]="{ 'is-invalid':formData.address2.errors && (formData.address2.touched||formData.address2.dirty) }">
+                  <div *ngIf="(formData.address2.touched||formData.address2.dirty) && formData.address2.errors" class="invalid-feedback">
+                    <div *ngIf="formData.address2.errors.required">Address is required</div>
+                    <div *ngIf="formData.address2.errors.pattern">Address should not be negative</div>
+                  </div>
+              </div> 
+          </div>
+          <div class="form-group">
+              <label for="city">City</label>
+              <input formControlName="city" id="city" type="text" class="form-control" [ngClass]="{ 'is-invalid':formData.city.errors && (formData.city.touched||formData.city.dirty) }">
+              <div *ngIf="(formData.city.touched||formData.city.dirty) && formData.city.errors" class="invalid-feedback">
+                <div *ngIf="formData.city.errors.required">City is required</div>
+              </div>
+          </div>
+          
+          <button type="submit" 
+                  *ngIf="!f.invalid" 
+                  class="btn btn-primary mr-1"
+                  (click)="placeOrder()">
+                  Place Order
+          </button>
+          <button class="btn btn-secondary" type="reset">Reset</button>
+        </form>
+    </div>
+    <div class="col-6 summary" style="align-self: center;">
+        <shopping-cart-summary
+        [cart]="cart">
+        </shopping-cart-summary>
+    </div>
+  </div>
+  </div>

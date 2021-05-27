@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~bootstrap/dist/css/bootstrap"; */
+
+/* @import '~@angular/material/prebuilt-themes/the-default-theme.css'; */
+
+/* html, body { height: 100%; } */
+
+body {
+     padding-top: 60px;
+     min-width:520px;
+     align-items: center;
+}
+@media (max-width: 979px) {
+body {
+     padding-top: 60px;
+}
+}
